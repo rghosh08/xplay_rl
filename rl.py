@@ -1,5 +1,5 @@
-class XPLAY_RL(object):
-    def __init__(self, metrics_api, agg_stat, action_space) -> None:
+class RL(object):
+    def __init__(self, metrics_api, agg_stat, action_space):
         '''
             metrics_api: similar to cloudwatch boto3
             agg_stat: mean, max, and other statistical functions
