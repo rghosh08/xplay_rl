@@ -18,8 +18,6 @@ def rl(rl_input):
     else:
         print("content type not support")
 
-
-
 if __name__ == "__main__":
     app.run()
 
