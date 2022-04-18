@@ -19,7 +19,7 @@ class RL(object):
             
         '''
         current_metrics = self.metric_api(time_interval)
-        if self.agg_stat(current_metrics) < threshold:
+        while self.agg_stat(current_metrics) < threshold:
             return current_action
         else:
             current_action -= action_delta
