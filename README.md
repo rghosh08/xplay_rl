@@ -19,5 +19,5 @@ request:
 
 response: 
 
-        json.dump({'ouput_action': output_action})
+    json.dump({'ouput_action': output_action})
 
