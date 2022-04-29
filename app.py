@@ -10,8 +10,8 @@ def rl(rl_input):
     if (content_type=='application/json'):
         try:
             rl_input = request.json
-            obj = RL(rl_input["metrics_api"], rl_input["agg_stat"], rl_input["action_space"]);
-            output_action = obj.policy(rl_input["time_interval"], rl_input["threshold"], rl_input["current_action"], rl_input["action_delta"])
+            obj = RL(rl_input["data"], rl_input["agg_stat"], rl_input["action_space"]);
+            output_action = obj.policy(rl_input["time_interval"], rl_input["min_threshold"], rl_input["current_action"], rl_input["action_delta"])
             return json.dump({'ouput_action': output_action});
         except:
             print('an error has occured')

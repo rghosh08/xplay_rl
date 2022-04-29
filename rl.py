@@ -1,11 +1,11 @@
 class RL(object):
-    def __init__(self, metrics_api, agg_stat, action_space):
+    def __init__(self, data, agg_stat, action_space):
         '''
             metrics_api: similar to cloudwatch boto3
             agg_stat: mean, max, and other statistical functions
             action_space: list of all action points such as memory size
         '''
-        self.metrics_api = metrics_api
+        self.data = data
         self.agg_stat = agg_stat
         self.action_space = action_space
         
