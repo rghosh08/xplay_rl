@@ -1,26 +1,41 @@
 class RL(object):
-    def __init__(self, data, agg_stat, action_space):
+    def __init__(self, data, agg_stat):
         '''
-            metrics_api: similar to cloudwatch boto3
-            agg_stat: mean, max, and other statistical functions
-            action_space: list of all action points such as memory size
+            data: metrics data
+            agg_stat: mean, max, 95th percentile, and other statistical functions
         '''
         self.data = data
         self.agg_stat = agg_stat
-        self.action_space = action_space
         
-
-    def policy(self, time_interval, threshold, current_action, action_delta):
+    def policy(self, max_threshold, min_threshold, current_action, action_delta):
         '''
-            time_interval: time interval for metric compilation
-            threshold: critical value for compliance
-            current_action: current value for action point
-            action_delta: change unit for action point (learnable parameter)
+            Input: 
+                max_threshold: upper limit for the critical compliance value
+                min_threshold: lower limit for the critical compliance value
+                current_action: current value for action point
+                action_delta: change unit for action point (learnable parameter)
+            Output:
+                rec_action: recommended action
+                flag: a boolean value which indicates whether theshold is already satified. 
+                      The default flag value is equal 1 which indicates non-compliance.
             
         '''
-        current_metrics = self.metric_api(time_interval)
-        while self.agg_stat(current_metrics) < threshold:
-            return current_action
+        current_metrics = self.data
+        flag=1
+        while (self.agg_stat(current_metrics) < max_threshold) or (self.agg_stat(current_metrics) > max_threshold):
+            rec_action, flag = current_action, 0
+            
+            return rec_action, flag
         else:
-            current_action -= action_delta
-            current_metrics = self.metric_api(time_interval)
+            if self.agg_stat(current_metrics) <= max_threshold:
+                current_action -= action_delta
+            else:
+                current_action+=action_delta
+
+            rec_action=current_action;
+
+            return rec_action, flag
+
+            
+
+            
