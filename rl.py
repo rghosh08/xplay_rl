@@ -22,12 +22,12 @@ class RL(object):
         '''
         current_metrics = self.data
         flag=1
-        while (self.agg_stat(current_metrics) < max_threshold) or (self.agg_stat(current_metrics) > max_threshold):
+        if (self.agg_stat(current_metrics) < max_threshold) and (self.agg_stat(current_metrics) > min_threshold):
             rec_action, flag = current_action, 0
             
             return rec_action, flag
         else:
-            if self.agg_stat(current_metrics) <= max_threshold:
+            if self.agg_stat(current_metrics) >= max_threshold:
                 current_action -= action_delta
             else:
                 current_action+=action_delta

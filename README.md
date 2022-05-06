@@ -19,7 +19,7 @@ request:
 response: 
     output json: 
         json.dump({'ouput_action': output_action, 'flag': flag})
-            rec_action: recommended action
+            rec_action: recommended action (float: should be converted to the right datatype.)
             flag: a boolean value which indicates whether theshold is already satified. 
                 The default flag value is equal 1 which indicates non-compliance.
 
